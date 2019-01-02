@@ -33,5 +33,20 @@ class SongList:
         self.song.sort(key=attrgetter(option))
         return self.song
 
-    def add_song(self):
+    def add_song(self, added_song):
+        self.song.append(added_song)
+        return self.song
 
+    def count_learned(self):
+        count = 0
+        for j in self.song:
+            if j[3] is True:
+                count += 1
+        return count
+
+    def count_require(self):
+        count = 0
+        for j in self.song:
+            if j[3] is False:
+                count += 1
+        return count
