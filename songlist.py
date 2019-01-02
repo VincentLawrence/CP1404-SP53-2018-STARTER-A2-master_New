@@ -8,7 +8,7 @@ class SongList:
     def __init__(self):
         self.song = []
 
-    """ Loading the song from CSV file """
+    # Loading the song from CSV file
     def load_song(self, songs_csv):
         with open(songs_csv, 'r') as file:
             song_file = csv.reader(file)
@@ -21,7 +21,7 @@ class SongList:
                 self.song.append(complete_song)
         return self.song
 
-    """ Sorting the song list by Title, Artist, Year and Learn """
+    # Sorting the song list by Title, Artist, Year and Learn
     def sort(self, choice):
         if choice == 0:
             option = 'Title'
@@ -34,12 +34,12 @@ class SongList:
         self.song.sort(key=attrgetter(option))
         return self.song
 
-    """ Adding new song to the song list """
+    # Adding new song to the song list
     def add_song(self, added_song):
         self.song.append(added_song)
         return self.song
 
-    """ Count learned song """
+    # Count learned song
     def count_learned(self):
         count = 0
         for j in self.song:
@@ -47,7 +47,7 @@ class SongList:
                 count += 1
         return count
 
-    """ Count require song """
+    # Count require song
     def count_require(self):
         count = 0
         for j in self.song:
