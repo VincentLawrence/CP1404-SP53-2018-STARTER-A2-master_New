@@ -2,4 +2,20 @@
 
 
 class Song:
-    pass
+
+    def __init__(self, title, artist, year, require):
+        self.title = title
+        self.artist = artist
+        self.year = year
+        self.learn = False
+        self.require = require
+
+    def require_song(self):
+        self.require = True
+
+    def learned_song(self):
+        self.learn = False
+
+    def __str__(self):
+        return
+
