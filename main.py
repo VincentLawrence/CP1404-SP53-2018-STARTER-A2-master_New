@@ -17,44 +17,39 @@ from songlist import SongList
 class SongsToLearnApp(App):
     song_list = SongList()
     all_widget = []
-    requiresong = 0
-    learnedsong = 0
+    requireSong = 0
+    learnedSong = 0
 
     def build(self):
         self.title = "Song To learn 2.0"
         self.root = Builder.load_file('app.kv')
         song_list = self.load_songs()
         self.show_song(song_list)
-        self.learned_song(song_list)
-        self.requiresong = 0
-        self.learnedsong = 0
         return self.root
 
     def load_songs(self):
         result_list = self.song_list.load_song('songs.csv')
         return result_list
 
-    def learned_song(self, song_list):
-        for k in song_list:
-            if k.require is True:
-                self.requiresong += 1
-            else:
-                self.learnedsong += 1
-
     def show_song(self, display_order):
         self.clean()
-        # requirement = self.learned_song()
+        self.requireSong = 0
+        self.learnedSong = 0
         for i in display_order:
             song_id = i.title
             if i.require is True:
-                to_learn = "(Learned)"
-            else:
                 to_learn = ''
-            display = '"{0}" by {1} ({2}) {3}'.format(i.title, i.artist, i.year, to_learn)
+                self.requireSong += 1
+            else:
+                to_learn = "'Learned'"
+                self.learnedSong += 1
+            display = '"{0}" by {1} in {2}. {3}'.format(i.title, i.artist, i.year, to_learn)
             song_button = Button(id=song_id, text=display, color='')
             self.all_widget.append(song_button)
             song_button.bind(on_release=self.select)
             self.root.ids.all_song.add_widget(song_button)
+            self.root.ids.title_learned.text = "To learn: {}, Learned: {}".format(self.requireSong,
+                                                                                  self.learnedSong)
 
     def select(self, instance):
         song_title = instance.id
