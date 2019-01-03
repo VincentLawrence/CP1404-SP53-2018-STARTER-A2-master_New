@@ -16,3 +16,33 @@ BoxLayout:
             on_text: app.sorting(self.text)
 
 
+        Label:
+            text: "Add New Song..."
+
+        Label:
+            text: "Title :"
+
+        TextInput:
+            id: title_fill
+
+        Label:
+            text: "Artist :"
+
+        TextInput:
+            id: artist_fill
+
+        Label:
+            text: "Year :"
+
+        TextInput:
+            id: year_fill
+
+        Button:
+            text: "Add Song"
+            on_release: app.add_song()
+
+        Button:
+            text: "Clear"
+            on_release: app.clear_all()
+
+
