@@ -91,6 +91,11 @@ class SongsToLearnApp(App):
         for j in self.all_widget:
             self.root.ids.all_song.remove_widget(j)
 
+    def clear_all(self):
+        self.root.ids.title_fill.text = ''
+        self.root.ids.artist_fill.text = ''
+        self.root.ids.year_fill.text = ''
+        self.root.ids.program_detail.text = ''
 
 
 SongsToLearnApp().run()
