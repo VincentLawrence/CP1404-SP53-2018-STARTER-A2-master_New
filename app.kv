@@ -1,1 +1,18 @@
 # create your Kivy layout in the kv language here
+BoxLayout:
+    orientation: 'horizontal'
+    padding: 7
+    BoxLayout:
+        size_hint_x: 0.4
+        padding: 7
+        orientation: 'vertical'
+        Label:
+            text: "Sort by:"
+
+        Spinner:
+            id: sort_option
+            text: 'Select here'
+            values: ('Title', 'Artist', 'Year')
+            on_text: app.sorting(self.text)
+
+
