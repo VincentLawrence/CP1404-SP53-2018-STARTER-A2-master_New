@@ -30,11 +30,12 @@ class SongsToLearnApp(App):
         return result_list
 
     def show_song(self, display_order):
+        self.clean()
         for i in display_order:
             song_id = i.title
             display = '"{0}" by {1} ({2}) {3}'.format(i.title, i.artist, i.year, i.require)
             song_button = Button(id=song_id, text=display, color='')
-            # self.all_widget.append(song_button)
+            self.all_widget.append(song_button)
             song_button.bind(on_release=self.select)
             self.root.ids.all_song.add_widget(song_button)
 
@@ -43,17 +44,19 @@ class SongsToLearnApp(App):
         self.root.ids.program_detail.color = (1,1,0,1)
         self.root.ids.program_detail.text = "{} is selected".format(song_title)
 
-    def sorting(self, available_choice):
+    def sorting(self, chosen):
+        self.clean()
+        available_choice = chosen
         if available_choice == 'Title':
             sort_song = self.song_list.sort(0)
         elif available_choice == 'Artist':
             sort_song = self.song_list.sort(1)
-        elif available_choice == 'Year':
-            sort_song = self.song_list.sort(2)
         else:
-            sort_song = self.song_list.sort(3)
+            sort_song = self.song_list.sort(2)
         self.show_song(sort_song)
 
-
+    def clean(self):
+        for j in self.all_widget:
+            self.root.ids.all_song.remove_widget(j)
 
 SongsToLearnApp().run()
