@@ -17,4 +17,4 @@ class Song:
         self.learn = False
 
     def __str__(self):
-        return "{},{},{},{},{}".format(self.title, self.artist, self.year, self.require)
+        return "{},by {},{},{}".format(self.title, self.artist, self.year, self.require)
