@@ -41,9 +41,9 @@ class SongsToLearnApp(App):
                 to_learn = ''
                 self.requireSong += 1
             else:
-                to_learn = "'Learned'"
+                to_learn = "(Learned)"
                 self.learnedSong += 1
-            display = '"{0}" by {1} in {2}. {3}'.format(i.title, i.artist, i.year, to_learn)
+            display = '"{0}" by {1} ({2}){3}'.format(i.title, i.artist, i.year, to_learn)
             song_button = Button(id=song_id, text=display, color='')
             self.all_widget.append(song_button)
             song_button.bind(on_release=self.select)
@@ -72,15 +72,23 @@ class SongsToLearnApp(App):
         artist = self.root.ids.artist_fill.text
         year = self.root.ids.year_fill.text
         if title == '' or artist == '' or year == '':
-            self.root.ids.program_detail.color = (0,1,1,1)
+            self.root.ids.program_detail.color = (0, 1, 1, 1)
             self.root.ids.program_detail.text = 'Please fill every box'
+        elif len(year) != 4:
+            self.root.ids.program_detail.color = (0, 1, 1, 1)
+            self.root.ids.program_detail.text = 'Year must have at least 4 digits'
+            try:
+                year = int(year)
+            except ValueError:
+                self.root.ids.program_detail.color = (0, 1, 1, 1)
+                self.root.ids.program_detail.text = 'Year must be an integer'
         else:
-            song_title = self.root.ids.title_fill.text
-            song_artist = self.root.ids.artist_fill.text
-            song_year = self.root.ids.year_fill.text
-            song_input = Song(song_title, song_artist, song_year, True)
-            add_list = self.song_list.add_song(song_input)
-            self.show_song(add_list)
+                song_title = self.root.ids.title_fill.text
+                song_artist = self.root.ids.artist_fill.text
+                song_year = self.root.ids.year_fill.text
+                song_input = Song(song_title, song_artist, song_year, True)
+                add_list = self.song_list.add_song(song_input)
+                self.show_song(add_list)
 
     def clean(self):
         for j in self.all_widget:
