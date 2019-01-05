@@ -15,40 +15,39 @@ from songlist import SongList
 
 
 class SongsToLearnApp(App):
-    song_list = SongList()
-    requireSong = 0
-    learnedSong = 0
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.song_list = SongList()
+        self.requireSong = 0
+        self.learnedSong = 0
 
     def build(self):
         self.title = "Song To learn 2.0"    # Add the title of the program
         self.root = Builder.load_file('app.kv')     # Reference kivy file
-        song_list = self.load_songs()
-        self.show_song(song_list)   # Loading song using class
+        self.song_list.load_song()
         return self.root
 
-    def load_songs(self):  # Loading songs
-        result_list = self.song_list.load_song('songs.csv')
-        return result_list
-
-    def show_song(self, display_order):  # Display Songs in GUI
-        self.requireSong = 0    # For counting require song
-        self.learnedSong = 0
-        require_colour = (0,1,0,1)
-        for i in display_order:
-            song_id = i.title
-            if i.require is True:   # For counting require song
-                to_learn = ''
+    def show_song(self):  # Display Songs in GUI
+        for i in self.song_list.song:
+            if i.require is True:
+                song_button = Button(text='"' + i.title + '"' + " by " + i.artist + " (" + str(
+                    i.year) + ") " "(Learned)", id=i.title)
+            # if i.require is True:   # For counting require song
+            #     to_learn = ''
                 self.requireSong += 1
-                display = '"{0}" by {1} ({2}){3}'.format(i.title, i.artist, i.year, to_learn)  # Display format
-                song_button = Button(id=song_id, text=display, color='')  # Add song to clickable button
-                Button.background_color = (0,1,0,1)
-                song_button.bind(on_release=self.select)
+                # display = '"{0}" by {1} ({2}){3}'.format(i.title, i.artist, i.year, to_learn)  # Display format
+                # song_button = Button(id=song_id, text=display, color='')  # Add song to clickable button
+                Button.background_color = (0, 1, 0, 1)
+                # song_button.bind(on_release=self.select)
             else:                           # For counting Learned song
-                to_learn = "(Learned)"
+                song_button = Button(text='"' + i.title + '"' + " by " + i.artist + " (" + str(
+                    i.year) + ") " "(Learned)", id=i.title)
+                # to_learn = "(Learned)"
                 self.learnedSong += 1
-                display = '"{0}" by {1} ({2}){3}'.format(i.title, i.artist, i.year, to_learn)   # Display format
-                song_button = Button(id=song_id, text=display, color='')    # Add song to clickable button
-                song_button.bind(on_release=self.select)
+                # display = '"{0}" by {1} ({2}){3}'.format(i.title, i.artist, i.year, to_learn)   # Display format
+                # song_button = Button(id=song_id, text=display, color='')    # Add song to clickable button
+                Button.background_color = (0, 1, 1, 1)
+            song_button.bind(on_release=self.select)
             self.root.ids.all_song.add_widget(song_button)
             # Display learned and to learn song
             self.root.ids.title_learned.text = "To learn: {}, Learned: {}".format(self.requireSong,
@@ -86,12 +85,13 @@ class SongsToLearnApp(App):
                 self.root.ids.program_detail.color = (0, 1, 1, 1)
                 self.root.ids.program_detail.text = 'Year must be an integer'
         else:
-                song_title = self.root.ids.title_fill.text
-                song_artist = self.root.ids.artist_fill.text
-                song_year = self.root.ids.year_fill.text
-                song_input = Song(song_title, song_artist, song_year, True)
-                add_list = self.song_list.add_song(song_input)
-                self.show_song(add_list)
+            song_title = self.root.ids.title_fill.text
+            song_artist = self.root.ids.artist_fill.text
+            song_year = self.root.ids.year_fill.text
+            song_input = Song(song_title, song_artist, song_year, True)
+            add_list = self.song_list.add_song(song_input)
+            self.root.ids.all_song.clear_widgets()
+            self.show_song(add_list)
 
     def clear_all(self):    # Clear input in text input function
         self.root.ids.title_fill.text = ''
