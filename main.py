@@ -58,11 +58,13 @@ class SongsToLearnApp(App):
     def sorting(self, chosen):      # Sort song function
         available_choice = chosen
         if available_choice == 'Title':
-            sort_song = self.song_list.sort(0)
+            self.song_list.sort(0)
         elif available_choice == 'Artist':
-            sort_song = self.song_list.sort(1)
+            self.song_list.sort(1)
+        elif available_choice == 'Year':
+            self.song_list.sort(2)
         else:
-            sort_song = self.song_list.sort(2)
+            self.song_list.sort(3)
         self.root.ids.all_song.clear_widgets()
         self.show_song()
 
