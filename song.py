@@ -7,14 +7,10 @@ class Song:
         self.title = title
         self.artist = artist
         self.year = year
-        self.learn = False
         self.require = require
 
-    def require_song(self):
-        self.require = True
-
-    def learned_song(self):
-        self.learn = False
+    def require_song(self, require):
+        self.require = require
 
     def __str__(self):
         return "{},by {},{},{}".format(self.title, self.artist, self.year, self.require)
