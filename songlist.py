@@ -3,35 +3,33 @@ import csv
 from operator import attrgetter
 from song import Song
 
+
 class SongList:
 
     def __init__(self):
         self.song = []
 
     # Loading the song from CSV file
-    def load_song(self, songs_csv):
-        with open(songs_csv, 'r') as file:
+    def load_song(self):
+        with open('songs.csv', 'r') as file:
             song_file = csv.reader(file)
             for i in song_file:
-                if i[3] == 'y':
-                    i[3] = True
-                else:
-                    i[3] = False
                 complete_song = Song(i[0], i[1], i[2], i[3])
                 self.song.append(complete_song)
         return self.song
 
     # Sorting the song list by Title, Artist, Year and Learn
-    def sort(self, choice):
-        if choice == 0:
-            option = 'Title'
-        elif choice == 1:
-            option = 'Artist'
-        elif choice == 2:
-            option = 'Year'
+    def sort(self, sort_id):
+        # sorting the song base on the title, artist, and year released
+        if sort_id == 0:
+            attr_sort = 'title'
+        elif sort_id == 1:
+            attr_sort = 'artist'
+        elif sort_id == 2:
+            attr_sort = 'year'
         else:
-            option = 'learn'
-        self.song.sort(key=attrgetter(option))
+            attr_sort = 'require'
+        self.song.sort(key=attrgetter(attr_sort))
         return self.song
 
     # Adding new song to the song list
@@ -54,3 +52,15 @@ class SongList:
             if j[3] is False:
                 count += 1
         return count
+
+    def get_song(self, title):
+        for song in self.song:
+            if song.title == title:
+                return song
+
+    def save_song(self):
+        with open('songs.csv', 'w') as output_file:
+            for song in self.song:
+                output_string = [song.title, song.artist, str(song.year), song.require]
+                write_csv = ','.join(output_string)
+                output_file.write(str(write_csv)+'\n')
