@@ -1,6 +1,6 @@
 """
 Name: Hav Kokfong
-Date:
+Date: 5th January 2019
 Brief Project Description:
 GitHub URL:
 """
@@ -52,6 +52,7 @@ class SongsToLearnApp(App):
             self.song_list.get_song(button.id).require = 'y'        # Mark song as unlearn
             self.root.ids.program_detail.text = "{} need to learn.".format(button.id)   # Display selected song format
         self.root.ids.program_detail.color = (1,1,0,1)      # Set label colour
+        self.sorting(self.root.ids.sort_option.text)
         self.root.ids.all_song.clear_widgets()      # Clear widgets
         self.show_song()
 
@@ -65,6 +66,7 @@ class SongsToLearnApp(App):
             self.song_list.sort(2)
         else:
             self.song_list.sort(3)          # Sort the song by Require
+        self.root.ids.sort_option.clear_widgets()
         self.root.ids.all_song.clear_widgets()
         self.show_song()
 
