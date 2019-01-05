@@ -50,7 +50,7 @@ class SongsToLearnApp(App):
             self.root.ids.program_detail.text = "{} is learned.".format(button.id)
         else:
             self.song_list.get_song(button.id).require = 'y'
-            self.root.ids.program_detail.text = "{} need be learn.".format(button.id)   # Display selected song format
+            self.root.ids.program_detail.text = "{} need to learn.".format(button.id)   # Display selected song format
         self.root.ids.program_detail.color = (1,1,0,1)
         self.root.ids.all_song.clear_widgets()
         self.show_song()
@@ -85,10 +85,10 @@ class SongsToLearnApp(App):
             song_title = self.root.ids.title_fill.text
             song_artist = self.root.ids.artist_fill.text
             song_year = self.root.ids.year_fill.text
-            song_input = Song(song_title, song_artist, song_year, True)
-            add_list = self.song_list.add_song(song_input)
+            song_input = Song(song_title, song_artist, song_year, 'y')
+            self.song_list.add_song(song_input)
             self.root.ids.all_song.clear_widgets()
-            self.show_song(add_list)
+            self.show_song()
 
     def clear_all(self):    # Clear input in text input function
         self.root.ids.title_fill.text = ''
@@ -96,7 +96,7 @@ class SongsToLearnApp(App):
         self.root.ids.year_fill.text = ''
         self.root.ids.program_detail.text = ''
 
-    def saving(self):
+    def stop(self):
         self.song_list.save_song()
 
 
