@@ -39,14 +39,16 @@ class SongsToLearnApp(App):
             if i.require is True:   # For counting require song
                 to_learn = ''
                 self.requireSong += 1
-                colour = require_colour
+                display = '"{0}" by {1} ({2}){3}'.format(i.title, i.artist, i.year, to_learn)  # Display format
+                song_button = Button(id=song_id, text=display, color='')  # Add song to clickable button
+                Button.background_color = (0,1,0,1)
+                song_button.bind(on_release=self.select)
             else:                           # For counting Learned song
                 to_learn = "(Learned)"
                 self.learnedSong += 1
-                colour = ''
-            display = '"{0}" by {1} ({2}){3}'.format(i.title, i.artist, i.year, to_learn)   # Display format
-            song_button = Button(id=song_id, text=display, color=colour)    # Add song to clickable button
-            song_button.bind(on_release=self.select)
+                display = '"{0}" by {1} ({2}){3}'.format(i.title, i.artist, i.year, to_learn)   # Display format
+                song_button = Button(id=song_id, text=display, color='')    # Add song to clickable button
+                song_button.bind(on_release=self.select)
             self.root.ids.all_song.add_widget(song_button)
             # Display learned and to learn song
             self.root.ids.title_learned.text = "To learn: {}, Learned: {}".format(self.requireSong,
