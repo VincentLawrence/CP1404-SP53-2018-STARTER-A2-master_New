@@ -16,7 +16,6 @@ from songlist import SongList
 
 class SongsToLearnApp(App):
     song_list = SongList()
-    all_widget = []
     requireSong = 0
     learnedSong = 0
 
@@ -32,7 +31,6 @@ class SongsToLearnApp(App):
         return result_list
 
     def show_song(self, display_order):  # Display Songs in GUI
-        self.clean()
         self.requireSong = 0    # For counting require song
         self.learnedSong = 0
         require_colour = (0,1,0,1)
@@ -48,7 +46,6 @@ class SongsToLearnApp(App):
                 colour = ''
             display = '"{0}" by {1} ({2}){3}'.format(i.title, i.artist, i.year, to_learn)   # Display format
             song_button = Button(id=song_id, text=display, color=colour)    # Add song to clickable button
-            self.all_widget.append(song_button)
             song_button.bind(on_release=self.select)
             self.root.ids.all_song.add_widget(song_button)
             # Display learned and to learn song
@@ -61,7 +58,6 @@ class SongsToLearnApp(App):
         self.root.ids.program_detail.text = "{} is learned".format(song_title)    # Display selected song format
 
     def sorting(self, chosen):      # Sort song function
-        self.clean()
         available_choice = chosen
         if available_choice == 'Title':
             sort_song = self.song_list.sort(0)
@@ -69,6 +65,7 @@ class SongsToLearnApp(App):
             sort_song = self.song_list.sort(1)
         else:
             sort_song = self.song_list.sort(2)
+        self.root.ids.all_song.clear_widgets()
         self.show_song(sort_song)
 
     def add_song(self):     # Add new song to the list
@@ -94,15 +91,14 @@ class SongsToLearnApp(App):
                 add_list = self.song_list.add_song(song_input)
                 self.show_song(add_list)
 
-    def clean(self):    # Restart display songs
-        for j in self.all_widget:
-            self.root.ids.all_song.remove_widget(j)
-
     def clear_all(self):    # Clear input in text input function
         self.root.ids.title_fill.text = ''
         self.root.ids.artist_fill.text = ''
         self.root.ids.year_fill.text = ''
         self.root.ids.program_detail.text = ''
+
+    def saving(self):
+        self.song_list.save_song()
 
 
 SongsToLearnApp().run()
