@@ -25,28 +25,19 @@ class SongsToLearnApp(App):
         self.title = "Song To learn 2.0"    # Add the title of the program
         self.root = Builder.load_file('app.kv')     # Reference kivy file
         self.song_list.load_song()
+        self.show_song()
         return self.root
 
     def show_song(self):  # Display Songs in GUI
         for i in self.song_list.song:
-            if i.require is True:
-                song_button = Button(text='"' + i.title + '"' + " by " + i.artist + " (" + str(
-                    i.year) + ") " "(Learned)", id=i.title)
-            # if i.require is True:   # For counting require song
-            #     to_learn = ''
-                self.requireSong += 1
-                # display = '"{0}" by {1} ({2}){3}'.format(i.title, i.artist, i.year, to_learn)  # Display format
-                # song_button = Button(id=song_id, text=display, color='')  # Add song to clickable button
-                Button.background_color = (0, 1, 0, 1)
-                # song_button.bind(on_release=self.select)
-            else:                           # For counting Learned song
-                song_button = Button(text='"' + i.title + '"' + " by " + i.artist + " (" + str(
-                    i.year) + ") " "(Learned)", id=i.title)
-                # to_learn = "(Learned)"
-                self.learnedSong += 1
-                # display = '"{0}" by {1} ({2}){3}'.format(i.title, i.artist, i.year, to_learn)   # Display format
-                # song_button = Button(id=song_id, text=display, color='')    # Add song to clickable button
-                Button.background_color = (0, 1, 1, 1)
+            if i.require == 'y':
+                song_button = Button(text='' + '"' + i.title + '"' + " by " + i.artist + "(" + i.year + ")",
+                                     id=i.title)
+                song_button.background_color = [88, 89, 0, 0.3]
+            else:
+                song_button = Button(text='' + '"' + i.title + '"' + " by " + i.artist + "(" + i.year + ") (learned)",
+                                     id=i.title)
+                song_button.background_color = [0, 88, 88, 0.3]
             song_button.bind(on_release=self.select)
             self.root.ids.all_song.add_widget(song_button)
             # Display learned and to learn song
@@ -67,7 +58,7 @@ class SongsToLearnApp(App):
         else:
             sort_song = self.song_list.sort(2)
         self.root.ids.all_song.clear_widgets()
-        self.show_song(sort_song)
+        self.show_song()
 
     def add_song(self):     # Add new song to the list
         title = self.root.ids.title_fill.text
