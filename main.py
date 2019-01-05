@@ -26,6 +26,7 @@ class SongsToLearnApp(App):
         self.root = Builder.load_file('app.kv')     # Reference kivy file
         self.song_list.load_song()      # Using class method to load CSV
         self.show_song()
+        self.sorting(self.root.ids.sort_option.text)
         return self.root
 
     def show_song(self):  # Display Songs in GUI
