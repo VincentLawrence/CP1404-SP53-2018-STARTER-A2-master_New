@@ -3,7 +3,7 @@
 
 class Song:
 
-    def __init__(self, title="", artist="", year="", require=""):
+    def __init__(self, title='', artist='', year='', require=''):
         self.title = title
         self.artist = artist
         self.year = year
