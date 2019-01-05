@@ -44,10 +44,16 @@ class SongsToLearnApp(App):
             self.root.ids.title_learned.text = "To learn: {}, Learned: {}".format(self.requireSong,
                                                                                   self.learnedSong)
 
-    def select(self, instance):     # Display selected song
-        song_title = instance.id
+    def select(self, button):     # Display selected song
+        if self.song_list.get_song(button.id).require == 'y':
+            self.song_list.get_song(button.id).require = 'n'
+            self.root.ids.program_detail.text = "{} is learned.".format(button.id)
+        else:
+            self.song_list.get_song(button.id).require = 'y'
+            self.root.ids.program_detail.text = "{} need be learn.".format(button.id)   # Display selected song format
         self.root.ids.program_detail.color = (1,1,0,1)
-        self.root.ids.program_detail.text = "{} is learned".format(song_title)    # Display selected song format
+        self.root.ids.all_song.clear_widgets()
+        self.show_song()
 
     def sorting(self, chosen):      # Sort song function
         available_choice = chosen
