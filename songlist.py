@@ -41,7 +41,7 @@ class SongList:
     def count_learned(self):
         count = 0
         for j in self.song:
-            if j[3] is True:
+            if j.require == 'n':
                 count += 1
         return count
 
@@ -49,7 +49,7 @@ class SongList:
     def count_require(self):
         count = 0
         for j in self.song:
-            if j[3] is False:
+            if j.require == 'y':
                 count += 1
         return count
 
