@@ -1,8 +1,9 @@
 """
 Name: Hav Kokfong
 Date: 5th January 2019
-Brief Project Description:
-GitHub URL:
+Brief Project Description:  The program displays the song from CSV file and allows user to mark any song as learned or
+                            need to learn. The user can also add in a new song to the list and learn that new song.
+GitHub URL: https://github.com/havkokfong/CP1404-SP53-2018-STARTER-A2-master_New
 """
 
 from kivy.app import App
