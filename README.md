@@ -8,17 +8,18 @@ _Note that to get full marks for this, your reflection should match the "exempla
 
 
 ## 1. How long did the entire project (assignment 2) take you?
-...  
+...  The project take me five days in to finish include the coding and testing.
 Note: You may like to use the WakaTime plugin, which tracks exactly how long you spend in code. See http://wakatime.com (but note that the free version only has a 7-day history)
 
 ## 2. What are you most satisfied with?
-...
+... The part that I most satisfied about this project is Kivy and Class. It made me understand a lot more on how to
+    use Class and Kivy.  
 
 ## 3. What are you least satisfied with?
-...
+... The testing part is where I feel that it does not satisfied.
 
 ## 4. What worked well in your development process?
-...
+... 
 
 ## 5. What about your process could be improved the next time you do a project like this?
 ...
