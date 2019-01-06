@@ -19,13 +19,15 @@ Note: You may like to use the WakaTime plugin, which tracks exactly how long you
 ... The testing part is where I feel that it does not satisfied.
 
 ## 4. What worked well in your development process?
-... 
+... The usage of class method in different places.
 
 ## 5. What about your process could be improved the next time you do a project like this?
-...
+... The duration that take to make this project should be reduce as much as possible. The design of GUI could be improve
+    in the next project.
 
 ## 6. Describe what resources you used and how you used them.
-...
+... I used the lecture slide and do some research on youtube as my resource. 
 
 ## 7. Describe the main challenges or obstacles you faced and how you overcame them.
-... 
+... The challenges that I faced is the sorting of song list and writing the new song to the CSV file. To overcome this
+    issue, I have tried different type of code to test and seeking help from friend.
