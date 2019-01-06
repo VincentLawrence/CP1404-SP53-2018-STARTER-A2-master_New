@@ -15,5 +15,8 @@ class Song:
     def require_song(self):        # Define check require method
         self.require = 'y'
 
+    def marked_learn(self):         # Define check learned song method
+        self.require = 'n'
+
     def __str__(self):
-        return "{},by {},{},{}".format(self.title, self.artist, self.year, self.require)
+        return "{},by {},{},{}".format(self.title, self.artist, self.year, self.require)  # str format
