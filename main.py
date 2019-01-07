@@ -81,10 +81,10 @@ class SongsToLearnApp(App):
         if title == '' or artist == '' or year == '':  # No input validation
             self.root.ids.program_detail.color = ERROR_COLOUR
             self.root.ids.program_detail.text = 'Please fill every box'
-        elif year == "string":
+        elif year == "string":          # Year validation
             self.root.ids.program_detail.color = ERROR_COLOUR
             self.root.ids.program_detail.text = 'Year must be an integer'
-        elif year < 0:
+        elif year < 0:                  # Year validation
             self.root.ids.program_detail.color = ERROR_COLOUR
             self.root.ids.program_detail.text = 'Year must have at least 4 digits'
         else:
@@ -94,7 +94,8 @@ class SongsToLearnApp(App):
             song_input = Song(song_title, song_artist, song_year, 'y')
             self.song_list.add_song(song_input)     # Add new song to song list
             self.root.ids.all_song.clear_widgets()
-            self.root.ids.program_detail.color = ERROR_COLOUR
+            self.clear_all()
+            self.root.ids.program_detail.color = ANNOUNCEMENT
             self.root.ids.program_detail.text = 'A song have added to the song list'
             self.show_song()
 
@@ -105,12 +106,6 @@ class SongsToLearnApp(App):
         except ValueError:
             year = 'string'
             return year
-
-    def song_check(self, title, artist, year):
-        for i in self.song_list.song:
-            if i.title == title and i.artist == artist and i.year == year:
-                self.root.ids.program_detail.color = (0, 1, 1, 1)
-                self.root.ids.program_detail.text = 'Song already inside the song list'
 
     def clear_all(self):    # Clear input in text input function
         self.root.ids.title_fill.text = ''
