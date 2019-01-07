@@ -13,6 +13,8 @@ from song import Song
 from songlist import SongList
 
 # Create your main program in this file, using the SongsToLearnApp class
+ERROR_COLOUR = [0, 1, 1, 1]
+ANNOUNCEMENT = [1, 1, 0, 1]
 
 
 class SongsToLearnApp(App):
@@ -53,7 +55,7 @@ class SongsToLearnApp(App):
         else:
             self.song_list.get_song(button.id).require = 'y'        # Mark song as unlearn
             self.root.ids.program_detail.text = "{} need to learn.".format(button.id)   # Display selected song format
-        self.root.ids.program_detail.color = (1,1,0,1)      # Set label colour
+        self.root.ids.program_detail.color = ANNOUNCEMENT      # Set label colour
         self.sorting(self.root.ids.sort_option.text)
         self.root.ids.all_song.clear_widgets()      # Clear widgets
         self.show_song()
@@ -77,13 +79,13 @@ class SongsToLearnApp(App):
         artist = self.root.ids.artist_fill.text
         year = self.year_check()
         if title == '' or artist == '' or year == '':  # No input validation
-            self.root.ids.program_detail.color = (0, 1, 1, 1)
+            self.root.ids.program_detail.color = ERROR_COLOUR
             self.root.ids.program_detail.text = 'Please fill every box'
         elif year == "string":
-            self.root.ids.program_detail.color = (0, 1, 1, 1)
+            self.root.ids.program_detail.color = ERROR_COLOUR
             self.root.ids.program_detail.text = 'Year must be an integer'
         elif year < 0:
-            self.root.ids.program_detail.color = (0, 1, 1, 1)
+            self.root.ids.program_detail.color = ERROR_COLOUR
             self.root.ids.program_detail.text = 'Year must have at least 4 digits'
         else:
             song_title = self.root.ids.title_fill.text
@@ -92,11 +94,11 @@ class SongsToLearnApp(App):
             song_input = Song(song_title, song_artist, song_year, 'y')
             self.song_list.add_song(song_input)     # Add new song to song list
             self.root.ids.all_song.clear_widgets()
-            self.root.ids.program_detail.color = (0, 1, 1, 1)
+            self.root.ids.program_detail.color = ERROR_COLOUR
             self.root.ids.program_detail.text = 'A song have added to the song list'
             self.show_song()
 
-    def year_check(self):
+    def year_check(self):   # Validate the song year input
         try:
             year = int(self.root.ids.year_fill.text)
             return year
