@@ -33,15 +33,19 @@ class SongsToLearnApp(App):
         return self.root
 
     def show_song(self):  # Display Songs in GUI
+        self.requireSong = 0
+        self.learnedSong = 0
         for i in self.song_list.song:
             if i.require == 'y':    # y means need to learn song
                 song_button = Button(text='' + '"' + i.title + '"' + " by " + i.artist + " (" + i.year + ")",
                                      id=i.title)        # Display format for need to learn song
                 song_button.background_color = [88, 89, 0, 0.3]     # Button background colour
+                self.requireSong += 1
             else:
                 song_button = Button(text='' + '"' + i.title + '"' + " by " + i.artist + " (" + i.year + ") (learned)",
                                      id=i.title)        # Display format for learned song
                 song_button.background_color = [0, 88, 88, 0.3]     # Button background colour
+                self.learnedSong += 1
             song_button.bind(on_release=self.select)
             self.root.ids.all_song.add_widget(song_button)
             # Display learned and to learn song
@@ -78,7 +82,6 @@ class SongsToLearnApp(App):
         title = self.root.ids.title_fill.text
         artist = self.root.ids.artist_fill.text
         year = self.year_check()
-        validate = True
         if title == '' or artist == '' or year == '':  # No input validation
             self.root.ids.program_detail.color = ERROR_COLOUR
             self.root.ids.program_detail.text = 'Please fill every box'
@@ -88,10 +91,6 @@ class SongsToLearnApp(App):
         elif year < 0:                  # Year validation
             self.root.ids.program_detail.color = ERROR_COLOUR
             self.root.ids.program_detail.text = 'Year must have at least 4 digits'
-        elif validate is True:
-            self.clear_all()
-            self.root.ids.program_detail.color = ERROR_COLOUR
-            self.root.ids.program_detail.text = 'Song already in the list'
         else:
             song_title = self.root.ids.title_fill.text
             song_artist = self.root.ids.artist_fill.text
@@ -111,12 +110,6 @@ class SongsToLearnApp(App):
         except ValueError:
             year = 'string'
             return year
-
-    def song_check(self):
-        for song in self.song_list.song:
-            if song.title is self.root.ids.title_fill.text and song.artist is self.root.ids.artist_fill.text \
-                    and song.year is self.root.ids.year_fill.text:
-                return True
 
     def clear_all(self):    # Clear input in text input function
         self.root.ids.title_fill.text = ''
